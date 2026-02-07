@@ -1,131 +1,246 @@
 <!doctype html>
 <html lang="pl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>panda3d.pl — sklep</title>
-<p style="color:#ffcc00; text-align:center; font-weight:bold; margin:10px 0;">
-  ⚠️ UWAGA: CENA NIE OBEJMUJE WYSYŁKI. CENA WYSYŁKI BĘDZIE USTALONA PO ZOBACZENIU W APLIKACJI KURIERA JEŚLI MI NIE UFASZ LUB CHCESZ TAŃSZĄ WYSYŁKE KUP PRZEZ VINTED :panda3D88.
-</p>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>panda3d.pl</title>
 
-  <style>
-    body{
-      margin:0;
-      font-family: Arial, sans-serif;
-      background:#0b0f14;
-      color:#fff;
-    }
-    header{
-      padding:20px;
-      text-align:center;
-      font-size:26px;
-      font-weight:bold;
-      border-bottom:1px solid #222;
-    }
-    main{
-      max-width:900px;
-      margin:0 auto;
-      padding:20px;
-    }
-    .products{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:20px;
-    }
-    .card{
-      background:#121924;
-      border-radius:12px;
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-    }
-    .card img{
-      width:100%;
-      height:220px;
-      object-fit:cover;
-      background:#000;
-    }
-    .content{
-      padding:14px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      flex:1;
-    }
-    .name{
-      font-size:18px;
-      font-weight:bold;
-    }
-    .desc{
-      font-size:14px;
-      color:#bbb;
-      flex:1;
-    }
-    .price{
-      font-size:16px;
-      font-weight:bold;
-    }
-    button{
-      margin-top:10px;
-      padding:12px;
-      border:none;
-      border-radius:8px;
-      font-weight:bold;
-      cursor:pointer;
-      background:linear-gradient(135deg,#6ee7ff,#a78bfa);
-      color:#000;
-    }
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#0b0f14;
+  color:#fff;
+}
 
-    /* MODAL */
-    .overlay{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.6);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
-    }
-    .modal{
-      background:#121924;
-      padding:20px;
-      border-radius:12px;
-      max-width:420px;
-      width:100%;
-    }
-    .modal h2{margin-top:0}
-    .box{
-      background:#0b0f14;
-      padding:12px;
-      border-radius:8px;
-      font-size:14px;
-      line-height:1.4;
-    }
-    .modal button{
-      width:100%;
-      margin-top:10px;
-    }
-    .close{
-      background:#222;
-      color:#fff;
-    }
-  </style>
+/* HEADER */
+header{
+  padding:18px;
+  text-align:center;
+  font-size:26px;
+  font-weight:bold;
+  border-bottom:1px solid #222;
+  position:sticky;
+  top:0;
+  background:#0b0f14;
+  z-index:1000;
+}
+
+/* MENU */
+.menu-btn{
+  position:fixed;
+  top:16px;
+  right:16px;
+  font-size:28px;
+  cursor:pointer;
+  z-index:2000;
+  user-select:none;
+}
+
+.menu{
+  position:fixed;
+  top:0;
+  right:-220px;
+  width:200px;
+  height:100%;
+  background:#121924;
+  padding-top:70px;
+  transition:.3s;
+  z-index:1999;
+  border-left:1px solid #222;
+}
+
+.menu a{
+  display:block;
+  padding:14px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:bold;
+  border-bottom:1px solid #222;
+}
+
+.menu a:hover{ background:#1b2436; }
+.menu.active{ right:0; }
+
+/* CONTENT */
+main{
+  max-width:1000px;
+  margin:0 auto;
+  padding:22px 20px 44px;
+}
+
+/* WARNING */
+.shipping-warning{
+  margin-bottom:18px;
+  padding:14px;
+  border-radius:12px;
+  background:#ffcc00;
+  color:#000;
+  font-weight:bold;
+  text-align:center;
+  line-height:1.4;
+}
+
+/* HOME */
+.hero{
+  text-align:center;
+  padding:28px 16px;
+  border:1px solid #222;
+  border-radius:14px;
+  background:#0f1520;
+}
+
+.hero h1{
+  margin:0 0 12px 0;
+  font-size:40px;
+}
+
+.hero p{
+  margin:0;
+  color:#bbb;
+}
+
+.actions{
+  margin-top:18px;
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.btn-link{
+  padding:12px 16px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:bold;
+  background:linear-gradient(135deg,#6ee7ff,#a78bfa);
+  color:#000;
+}
+
+.btn-link.secondary{
+  background:#1b2436;
+  color:#fff;
+}
+
+/* DRUK 3D */
+.section-title{
+  margin:0 0 16px;
+  font-size:24px;
+  font-weight:bold;
+  text-align:center;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:#121924;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid #222;
+}
+
+.card img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
+
+.content{
+  padding:14px;
+}
+
+.name{ font-size:18px; font-weight:bold; }
+.desc{ font-size:14px; color:#bbb; }
+.price{ font-weight:bold; }
+
+button{
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:linear-gradient(135deg,#6ee7ff,#a78bfa);
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* MODAL */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:3000;
+}
+
+.modal{
+  background:#121924;
+  padding:20px;
+  border-radius:12px;
+  max-width:420px;
+  width:100%;
+}
+
+.box{
+  background:#0b0f14;
+  padding:12px;
+  border-radius:8px;
+  white-space:pre-line;
+}
+
+.close{
+  background:#222;
+  color:#fff;
+}
+</style>
 </head>
-<a class="vinted-btn" href="https://www.vinted.pl/member/3135143908" target="_blank" rel="noopener">
-  Przejdź do Vinted
-</a>
-
-
-</a>
 
 <body>
+
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
+<div class="menu" id="menu">
+  <a href="#" onclick="goHome()">Strona główna</a>
+  <a href="#" onclick="goDruk3D()">Druk 3D</a>
+</div>
 
 <header>panda3d.pl</header>
 
 <main>
+
+<!-- STRONA GŁÓWNA -->
+<section id="homeSection">
+
+  <div class="shipping-warning">
+    ⚠️ UWAGA! CENA NIE OBEJMUJE WYSYŁKI.<br>
+    CENA WYSYŁKI BĘDZIE DODANA W WIADOMOŚCI PRYWATNEJ.<br>
+    JEŚLI NIE WIERZYSZ LUB CHCESZ TAŃSZĄ WYSYŁKĘ,<br>
+    PRZEJDŹ NA MOJE VINTED PONIŻEJ.
+  </div>
+
+  <div class="hero">
+    <h1>POZNAJ MOJE PRODUKTY</h1>
+    <p>Kontakt: <b>panda.3D.Praca@gmail.com</b></p>
+
+    <div class="actions">
+      <a class="btn-link" id="vintedBtn" href="#" target="_blank">Vinted</a>
+      <a class="btn-link secondary" href="#" onclick="goDruk3D()">Przejdź do Druk 3D</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- DRUK 3D -->
+<section id="druk3dSection" style="display:none;">
+  <h2 class="section-title">Druk 3D</h2>
+
   <div class="products">
 
-    <!-- PRODUKT 1 -->
     <div class="card">
       <img src="https://i.imgur.com/dgKHcJI.jpeg">
       <div class="content">
@@ -136,9 +251,8 @@
       </div>
     </div>
 
-    <!-- PRODUKT 2 -->
     <div class="card">
-      <img src="https://i.imgur.com/fJGmXjc.jpeg">
+      <img src="https://i.imgur.com/Z49WAgs.jpeg">
       <div class="content">
         <div class="name">T-Rex Flexi</div>
         <div class="desc">Drukarka 3D</div>
@@ -147,9 +261,8 @@
       </div>
     </div>
 
-    <!-- PRODUKT 3 -->
     <div class="card">
-      <img src="https://i.imgur.com/Gi15MA8.jpeg">
+      <img src="https://i.imgur.com/MjELHH6.jpeg">
       <div class="content">
         <div class="name">Red Panda Flexi</div>
         <div class="desc">Drukarka 3D</div>
@@ -159,48 +272,70 @@
     </div>
 
   </div>
+</section>
+
 </main>
 
 <!-- MODAL -->
 <div class="overlay" id="overlay">
   <div class="modal">
-    <h2 id="title"></h2>
-    <div class="box" id="info"></div>
+    <h3 id="modalTitle"></h3>
+    <div class="box" id="modalText"></div>
     <button onclick="copyData()">Kopiuj dane</button>
     <button class="close" onclick="closeModal()">Zamknij</button>
   </div>
 </div>
 
 <script>
-  const BLIK_PHONE = "+48 787 844 153";      // ← TWÓJ NUMER
-  const CONTACT = "Panda.3D.Praca@gmail.com";      // ← KONTAKT
+const BLIK_PHONE = "+48 787 844 153"; // ← TWÓJ NUMER BLIK
+const CONTACT = "panda.3D.Praca@gmail.com";
+const VINTED_URL = "https://www.vinted.pl/member/3135143908";
 
-  let copyText = "";
+document.getElementById("vintedBtn").href = VINTED_URL;
 
-  function buy(name, price){
-    const title = `Kupujesz: ${name}`;
-    const info = 
-      `Kwota: ${price} zł\n` +
-      `Numer BLIK (przelew na telefon): ${BLIK_PHONE}\n` +
-      `Tytuł: panda3d ${name}\n` +
-      `Kontakt: ${CONTACT}`;
+let copyText = "";
 
-    document.getElementById("title").innerText = title;
-    document.getElementById("info").innerText = info;
-    copyText = info;
+function toggleMenu(){
+  document.getElementById("menu").classList.toggle("active");
+}
 
-    document.getElementById("overlay").style.display = "flex";
-  }
+function goHome(){
+  document.getElementById("menu").classList.remove("active");
+  document.getElementById("druk3dSection").style.display="none";
+  document.getElementById("homeSection").style.display="block";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
 
-  function closeModal(){
-    document.getElementById("overlay").style.display = "none";
-  }
+function goDruk3D(){
+  document.getElementById("menu").classList.remove("active");
+  document.getElementById("homeSection").style.display="none";
+  document.getElementById("druk3dSection").style.display="block";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
 
-  function copyData(){
-    navigator.clipboard.writeText(copyText);
-    alert("Dane skopiowane ✅");
-  }
+function buy(name, price){
+  const text =
+`Kwota: ${price} zł
+Numer BLIK (przelew na telefon): ${BLIK_PHONE}
+Tytuł: panda3d ${name}
+Kontakt: ${CONTACT}`;
+
+  document.getElementById("modalTitle").innerText = "Kupujesz: " + name;
+  document.getElementById("modalText").innerText = text;
+  copyText = text;
+  document.getElementById("overlay").style.display="flex";
+}
+
+function closeModal(){
+  document.getElementById("overlay").style.display="none";
+}
+
+function copyData(){
+  navigator.clipboard.writeText(copyText);
+  alert("Dane skopiowane ✅");
+}
 </script>
 
 </body>
 </html>
+
